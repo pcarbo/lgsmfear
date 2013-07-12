@@ -11,11 +11,15 @@
 #
 # Individual identifiers that are given special attention are:
 #
-#  -9999  genetically identical inbred Sm/j males
-#  -9998  genetically identical inbred Lg/j females
-#  -9997  genetically identical F1 male offspring from Sm/j x Lg/j cross
-#  -9996  genetically identical F1 female offspring from Sm/j x Lg/j cross
+#  -9999  genetically identical inbred SM/J males
+#  -9998  genetically identical inbred LG/J females
+#  -9997  genetically identical F1 male offspring from SM/J x LG/J cross
+#  -9996  genetically identical F1 female offspring from SM/J x LG/J cross
 #      0  unknown
+#
+#
+# Note that the letter A is added to the ids of some F2 mice to ensure
+# that all ids in the pedigree are unique.
 #
 id,generation,sex,sire,dam
 -9999,F0,M,0,0

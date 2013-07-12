@@ -30,8 +30,10 @@
 #      environment, after the tone is presented at the same time as 
 #      Day 1 ("freezing to cue")
 # 
-# Columns 16, 17 and 18 are other phenotypes calculated from 
-# the "freezing" measurements.
+# Columns 8-10 are measurements obtained from "Open Field" testing,
+# and columns 13-15 are measurements obtained from "Conditioned Fear"
+# testing. Columns 16-18 are other phenotypes calculated from the
+# "freezing" measurements.
 #
 id,generation,litterid,littersize,sex,coatcolor,age,distperiphery,distcenter,propcenter,FB1,FB2,pretrainfreeze,freezetocontext,freezetocue,learn,extinct,ctxtlearn
 635A,F2,1,11,F,B,69,2056,276,0.065,2,5,0.0178,0.1872,0.4894,58.94,-23.54,16.94

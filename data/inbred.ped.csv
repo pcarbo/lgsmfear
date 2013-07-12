@@ -1,4 +1,7 @@
-# This pedigree file is used to artificially generate inbred founders.
+# This pedigree is used to artificially generate inbred founders.
+# QTLRel assumes that the alleles of founders in the pedigree are not
+# identical by descent, so this pedigree fragment is used to
+# circumvent this restriction.
 id,generation,sex,sire,dam
 S0,-7,M,0,0
 D0,-7,F,0,0
