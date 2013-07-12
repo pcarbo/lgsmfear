@@ -1,0 +1,18 @@
+# This pedigree file is used to artificially generate inbred founders.
+id,generation,sex,sire,dam
+S0,-7,M,0,0
+D0,-7,F,0,0
+S1,-6,M,S0,S0
+D1,-6,F,D0,D0
+S2,-5,M,S1,S1
+D2,-5,F,D1,D1
+S3,-4,M,S2,S2
+D3,-4,F,D2,D2
+S4,-3,M,S3,S3
+D4,-3,F,D3,D3
+S5,-2,M,S4,S4
+D5,-2,F,D4,D4
+S6,-1,M,S5,S5
+D6,-1,F,D5,D5
+-9999,F0,M,S6,S6
+-9998,F0,F,D6,D6
