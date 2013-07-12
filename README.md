@@ -24,4 +24,17 @@ Summary of the data files goes here.
 
 ###Overview of R source code files
 
-Summary of the R source code files goes here.
+The code subdirectory contains several files of interest. Here are the
+main ones of interest:
+
++ **map.qtls.R** Description of this file goes here.
+
++ **plot.gwscan.R** Description of this file goes here.
+
+###Who
+
+The R code implementing the analysis of this mouse study was developed by:<br>
+[Peter Carbonetto]((http://www.cs.ubc.ca/spider/pcarbo)<br>
+Dept. of Human Genetics<br>
+University of Chicago<br> 
+July 2013
