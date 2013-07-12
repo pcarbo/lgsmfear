@@ -1,6 +1,6 @@
 # QTL mapping of fear conditioning traits in LG/J x SM/J AIL mouse study
 
-###Summary
+###Objectives
 
 Overview of what is contained in repository goes here.
 
@@ -20,7 +20,12 @@ Copyright 2013 Peter Carbonetto.
 
 ###Overview of data files
 
-Summary of the data files goes here.
+The data subdirectory contains several files of interest. Here are the
+main ones of interest:
+
++ **pheno.csv** Description of this file goes here.
+
++ **geno.csv** Description of this file goes here.
 
 ###Overview of R source code files
 
@@ -33,7 +38,8 @@ main ones of interest:
 
 ###Who
 
-The R code implementing the analysis of this mouse study was developed by:<br>
+The R code implementing the analysis procedure for this mouse study 
+was developed by:<br>
 [Peter Carbonetto]((http://www.cs.ubc.ca/spider/pcarbo)<br>
 Dept. of Human Genetics<br>
 University of Chicago<br> 
