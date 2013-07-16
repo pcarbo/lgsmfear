@@ -99,8 +99,6 @@ map     <- transform(map[markers,],chr = droplevels(chr))
 # the F2 cross is also genotyped in the F34 cross.
 F2.markers <- which(!all.missing.col(geno[F2.rows,]))
 
-stop()
-
 # TRANSFORM TRAITS
 # ----------------
 # I transform pretrainfreeze, freezetocontext, freezetocue and

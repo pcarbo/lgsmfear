@@ -1,0 +1,135 @@
+# This is a script to run a permutation test to calculate thresholds
+# for significance for the X chromosome in the combined F2 and F34
+# cohort, ignoring relatedness between mice.
+
+# SCRIPT PARAMETERS
+# -----------------
+qtl.method   <- "hk"       # Which QTL mapping method to use in qtl.
+map.function <- "Haldane"  # Map function to use for interval mapping.
+num.perm     <- 1000       # Number of replicates for permutation test.
+jitter.amt   <- 1e-6       # Amount by which marker positions are adjusted.
+
+# Save the results to this file.
+resultsfile <- "gwscan.X.perms.RData"
+
+# Separately map QTLs for these phenotypes, and use these covariates
+# in QTL mapping for all phenotypes. Note that sex is also treated as
+# an interactive covariate.
+phenotypes <- c("pretrainfreeze","freezetocontext","freezetocue",
+                "distperiphery","distcenter","propcenter")
+covariates <- c("age","albino","agouti","sex")
+
+# Initialize the random number generator.
+set.seed(7)
+
+# Load packages and function definitions.
+library(qtl)
+source("misc.R")
+source("read.data.R")
+source("data.manip.R")
+
+# LOAD DATA
+# ---------
+# Load the genotype, phenotype and marker data for the combined
+# cohort. I remove the first two columns of the genotype data frame
+# containing the ID and generation, and set the row names for the
+# genotype data to the mouse IDs. I adjust the map positions
+# (i.e. genetic distances) slightly so that no two markers have the
+# same position. I also reorder the rows of the phenotype and genotype
+# data so that the rows of the tables list the F2 females, F2 males,
+# F34 females, and F34 males in that order, from top of the table to
+# bottom.
+cat("Loading data.\n")
+pheno           <- read.phenotypes("../data/pheno.csv")
+geno            <- read.genotypes("../data/geno.csv")
+rows            <- order(pheno$generation,pheno$sex)
+pheno           <- pheno[rows,]
+geno            <- geno[rows,]
+row.names(geno) <- geno$id
+geno            <- geno[-(1:2)]
+map             <- read.map("../data/map.csv",chromosomes)
+map             <- jitter.gendist(map,jitter.amt)
+
+# Treat the X chromosome as an autosome chromosome.
+levels(map$chr) <- 1:20
+
+# DISCARD SAMPLES
+# ---------------
+# I remove three mice from the F2 cohort because a large proportion of
+# their genotypes are not available.
+rows  <- which(!is.element(pheno$id,c("648A","738A","811A")))
+pheno <- pheno[rows,]
+geno  <- geno[rows,]
+
+# GET F2 and F34 CROSSES
+# ----------------------
+# Get the rows of the genotype and phenotype matrices corresponding to
+# the male and female mice in the F2 and F34 crosses.
+sex         <- pheno$sex
+F2.females  <- which(pheno$generation == "F2"  & sex == "F")
+F2.males    <- which(pheno$generation == "F2"  & sex == "M")
+F34.females <- which(pheno$generation == "F34" & sex == "F")
+F34.males   <- which(pheno$generation == "F34" & sex == "M")
+F2.rows     <- c(F2.females,F2.males)
+F34.rows    <- c(F34.females,F34.males)
+
+# DISCARD MARKERS
+# ---------------
+# I also remove markers that are *not* genotyped in the F34 cross.
+markers <- which(!all.missing.col(geno[F34.rows,]))
+geno    <- geno[,markers]
+map     <- map[markers,]
+
+# TRANSFORM TRAITS
+# ----------------
+# I transform pretrainfreeze, freezetocontext, freezetocue and
+# propcenter to the log-odds scale using the logit(x) function (in
+# base 10). I transform age, and create traits albino and agouti
+# from the coat colour data.
+cols        <- c("pretrainfreeze","freezetocontext",
+                 "freezetocue","propcenter")
+flogit      <- function (x) logit10(project.onto.interval(x,0.01,0.99))
+pheno[cols] <- lapply(pheno[cols],flogit)
+pheno       <- transform(pheno,
+                         sex    = factor2integer(sex) - 1,
+                         age    = age - mean(age),
+                         albino = as.integer(coatcolor == "W"),
+                         agouti = as.integer(coatcolor == "A"))
+
+# COMPUTE GENOTYPE PROBABILITIES
+# ------------------------------
+# Compute the conditional genotype probabilities separately for males
+# and females in F2 and F34 crosses. To accomplish this, we need to
+# replace the genotypes with allele counts (AA, AB, BB become 1, 2, 3,
+# respectively), and we replace any missing values with zeros.
+cat("Calculating probabilities of missing genotypes.\n")
+G  <- genotypes2counts(geno)
+G  <- zero.na(G)
+gp <- combine.genoprob(genoProb(G[F2.females,],map,step = Inf,
+                                method = map.function,gr = 2),
+                       genoProb(G[F2.males,],map,step = Inf,
+                                method = map.function,gr = 2))
+gp <- combine.genoprob(gp,genoProb(G[F34.females,],map,step = Inf,
+                                method = map.function,gr = 34))
+gp <- combine.genoprob(gp,genoProb(G[F34.males,],map,step = Inf,
+                                method = map.function,gr = 34))
+
+# Convert the genotype and phenotype data to the format expected by 'qtl'.
+data <- rel2qtl(pheno,geno,map)
+data <- rel2qtl.genoprob(data,gp) 
+      
+# Perform a permutation test to calculate thresholds for significance.
+cat("Calculating significance thresholds for combined cross using qtl.\n")
+perms <- scanone(data,pheno.col = phenotypes,
+                 addcovar = data$pheno[covariates],
+                 intcovar = data$pheno["sex"],
+                 model = "normal",method = qtl.method,
+                 use = "all.obs",n.perm = num.perm,
+                 verbose = FALSE)
+
+# SAVE RESULTS TO FILE
+# --------------------
+cat("Saving results to file.\n")
+save(file = resultsfile,
+     list = c("map.function","num.perm","qtl.method",
+              "covariates","phenotypes","perms"))
