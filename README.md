@@ -14,7 +14,7 @@ it and/or modify it under the terms of the
 published by the Free Software Foundation, either version 3 of the
 License, or (at your option) any later version.
 
-this program is distributed in the hope that it will be useful, but
+This program is distributed in the hope that it will be useful, but
 **without any warranty**; without even the implied warranty of
 **merchantability** or **fitness for a particular purpose**. See
 [LICENSE](LICENSE) for more details.
@@ -39,7 +39,23 @@ markers (single nucleotide polymorphisms, or SNPs) in the F2 and F34
 crosses. Most of the genotypes are marked as missing in the F2 mice
 because a subset of only 162 SNPs were genotyped in these mice.
 
-+ **map.csv** 
++ **map.csv** Information about SNPs genotyped in mouse advanced
+intercross line. Information for each SNP includes chromosome number,
+base pair position on chromosome, refSNP identifier (if available),
+and genetic distance estimate.
+
++ **ped.csv** Pedigree data for the mouse advanced intercross line.
+
++ **inbred.ped.csv** Pedigree fragment used to define inbred founders.
+QTLRel assumes that the alleles of founders in the pedigree are not
+identical by descent (IBD). This pedigree fragment is added to the
+pedigree to circumvent this restriction.
+
++ **qtls.csv** SNPs with the strongest support for being QTLs
+based on the initial QTL mapping.
+
++ **F34.idcf.RData** Identity coefficients for F34 cross calculated
+  using the **cic** function in QTLRel.
 
 ###Overview of R source code files
 
@@ -50,10 +66,9 @@ main ones of interest:
 
 + **plot.gwscan.R** Description of this file goes here.
 
-###Who
+###Credits
 
-The R code implementing the analysis procedure for this mouse study 
-was developed by:<br>
+The R code implementing the analysis procedures was developed by:<br>
 [Peter Carbonetto]((http://www.cs.ubc.ca/spider/pcarbo)<br>
 Dept. of Human Genetics<br>
 University of Chicago<br> 
