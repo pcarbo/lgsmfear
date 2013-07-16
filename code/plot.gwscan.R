@@ -1,4 +1,6 @@
-# This is a small script to plot the QTL mapping results.
+# This script plots the QTL mapping results obtained after running
+# script map.qtls.R.
+#
 library(qtl)
 
 # SCRIPT PARAMETERS
@@ -7,7 +9,7 @@ threshold <- 0.05  # Significance threshold.
 ymax      <- 9     # Height of vertical axis.
 
 # Load the QTL mapping results.
-load("../results/gwscan.rr.Rdata")
+load("gwscan.rr.Rdata")
 n <- length(phenotypes)
 
 # PLOT QTL MAPPING RESULTS

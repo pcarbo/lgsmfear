@@ -1,7 +1,7 @@
 # This script maps QTLs on the X chromosome using genotype and
-# phenotype data from the F2 and F34 crosses. Here I use marker-based
-# estimates of relatedness, so there is no need to load the pedigree
-# data.
+# phenotype data from the combined F2 and F34 crosses. Marker-based
+# estimates of pairwise relatedness are used here, so there is no need
+# to load the pedigree data.
 
 # SCRIPT PARAMETERS
 # -----------------
@@ -10,7 +10,7 @@ map.function <- "Haldane"  # Map function to use for interval mapping.
 jitter.amt   <- 1e-6       # Amount by which marker positions are adjusted.
 
 # Save the results to this file.
-resultsfile <- "gwscan.X.temp.RData"
+resultsfile <- "gwscan.X.RData"
 
 # Separately map QTLs for these phenotypes, and use these covariates
 # in QTL mapping for all phenotypes. Note that sex is treated as an

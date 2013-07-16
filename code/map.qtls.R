@@ -1,10 +1,27 @@
-# This script maps QTLs using genotype and phenotype data from the F2
-# and F34 crosses.
+# This script maps QTLs using genotype and phenotype data separately
+# in the F2 and F34 samples, and in the combined (F2 + F34)
+# cohort. The statistical analysis accounts for varying relatedness
+# among the F2 and F34 samples. Pairwise relatedness is estimated
+# either using the pedigree data (relatedness = "pedigree") or using
+# the marker data (relatedness = "markers"). The QTL mapping results
+# in the F2 sample are compared against QTL mapping that does not
+# account for unequal relatedness; since F2 crosses share roughly the
+# same amount of their genome, the both QTL mapping approaches should
+# yield similar results.
+#
+# Here we only consider autosomal chromosomes; QTL mapping for the X
+# chromosome is conducted separately in map.X.qtls.R.
+#
+# Permutation tests are used to calculate thresholds for significant
+# LOD scores. This permutation tests assume individuals are not
+# related, which is a reasonable assumption under certain conditions.
+#
 
 # SCRIPT PARAMETERS
 # -----------------
 qtl.method   <- "hk"       # Which QTL mapping method to use in qtl.
-relatedness  <- "markers"  # How to estimate relatedness.
+relatedness  <- "markers"  # How to estimate relatedness (either
+                           # "pedigree" or "markers").
 map.function <- "Haldane"  # Map function to use for interval mapping.
 num.perm     <- 1000       # Number of replicates for permutation test.
 jitter.amt   <- 1e-6       # Amount by which marker positions are adjusted.

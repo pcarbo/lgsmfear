@@ -1,5 +1,6 @@
 # This script generates the identity coefficients for the F2 and F34
 # crosses.
+#
 library(QTLRel)
 source("misc.R")
 source("read.data.R")
