@@ -72,7 +72,7 @@ advanced intercross line. Information for each SNP includes chromosome
 number, base pair position on chromosome, refSNP identifier (if
 available), and genetic distance estimate.
 
-+ [ped.csv](data/ped.csv) Pedigree data for the mouse advanced
++ [ped.csv](data/ped.csv) Full pedigree data for the advanced
   intercross line.
 
 + [inbred.ped.csv](data/inbred.ped.csv) Pedigree fragment used to
@@ -80,11 +80,11 @@ define inbred founders. QTLRel assumes that the alleles of founders
 in the pedigree are not identical by descent (IBD). This pedigree
 fragment is added to the pedigree to circumvent this restriction.
 
-+ [qtls.csv](data/qtls.csv) SNPs with the strongest support for being
-QTLs based on the initial QTL mapping.
++ [qtls.csv](data/qtls.csv) SNPs showing the strongest support for
+being QTLs based on the initial mapping.
 
 + [F34.idcf.RData](data/F34.idcf.RData) Identity coefficients for F34
-  cross calculated using the **cic** function in QTLRel.
+  cross obtained by running script [compute.idcf.R](code/compute.idcf.R).
 
 ###Overview of R source code files
 
