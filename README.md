@@ -28,7 +28,7 @@ results for all phenotypes; (4) how to display the results.
 
 ###Overview of data files
 
-Here is a brief summary of the files in the data directory:
+Here is a brief summary of the files in the [data](data) directory:
 
 + [pheno.csv](data/pheno.csv) Phenotype data from 3-day fear
 conditioning study for 490 mice from the F2 cross, and 687 mice from
@@ -61,12 +61,30 @@ QTLs based on the initial QTL mapping.
 
 ###Overview of R source code files
 
+Here is a brief summary of the files in the [code](code) directory
+
 The code subdirectory contains several files of interest. Here are the
 main ones of interest:
 
-+ **map.qtls.R** Description of this file goes here.
++ [map.qtls.R](code/map.qtls.R) Description of this file goes here.
 
-+ plot.gwscan.R Description of this file goes here.
++ [plot.gwscan.R](code/plot.gwscan.R) Description of this file goes here.
+
++ [compute.idcf.R](code/compute.idcf.R) Description of this file goes here.
+
++ [map.X.qtls.R](code/map.X.qtls.R) Description of this file goes here.
+
++ [map.X.perms.R](code/map.X.perms.R) Description of this file goes here.
+
++ [map.multi.qtls.R](code/map.multi.qtls.R) Description of this file goes here.
+
++ [read.data.R](code/read.data.R) Description of this file goes here.
+
++ [data.manip.R](code/data.manip.R) Description of this file goes here.
+
++ [mapping.tools.R](code/mapping.tools.R) Description of this file goes here.
+
++ [misc.R](code/misc.R) Description of this file goes here.
 
 ###Credits
 
