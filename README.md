@@ -2,6 +2,15 @@
 
 ###Objectives
 
+This repository contains code and data to reproduce results of a study
+identifying quantitative trait loci for fear and anxiety-related
+traits in mice. The data are genotypes and phenotypes from a LG/J x
+SM/J F2 intercross, and a 34th generation advanced intercross based on
+the same inbred strains. The QTL mapping accounts for the fact that
+the mice in the combined F2 + F34 cohort are related to each other at
+varying proportions. All the steps of the analysis are implemented in
+[R](http://www.r-project.org).
+
 Overview of what is contained in repository goes here.
 
 ###License
