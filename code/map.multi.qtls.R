@@ -1,7 +1,8 @@
-# This script assesses evidence for multiple QTLs using the combined
-# genotype and phenotype data from the F2 and F34 crosses. Here I use
-# marker-based estimates of relatedness, so there is no need to load
-# the pedigree data.
+# This script assesses support for multiple QTLs using the combined
+# genotype and phenotype data from the F2 and F34 crosses. This script
+# requires a list of SNPs that show the strongest support for being
+# QTLs (qtls.csv). Here we use marker-based estimates of relatedness,
+# so there is no need to load the pedigree data.
 
 # SCRIPT PARAMETERS
 # -----------------

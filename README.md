@@ -84,8 +84,9 @@ Here is a brief summary of the files in the [code](code) directory:
   significance thresholds in the X chromosome using a permutation
   test.
 
-+ [map.multi.qtls.R](code/map.multi.qtls.R) Description of this file
-  goes here.
++ [map.multi.qtls.R](code/map.multi.qtls.R) Once we have identified
+  the markers showing the strongest support for being QTLs, use this
+  script to assess support for multiple QTLs on the same chromosome.
 
 + [read.data.R](code/read.data.R) Contains function definitions for
   reading experimental cross data from files in comma-delimited ("csv")
