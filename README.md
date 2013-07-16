@@ -30,32 +30,34 @@ results for all phenotypes; (4) how to display the results.
 
 Here is a brief summary of the files in the data directory:
 
-+ **pheno.csv** Phenotype data from 3-day fear conditioning study for
-490 mice from the F2 cross, and 687 mice from the F34 cross. Includes
-other information such as gender, age and coat colour.
++ [pheno.csv](data/pheno.csv) Phenotype data from 3-day fear
+conditioning study for 490 mice from the F2 cross, and 687 mice from
+the F34 cross. Includes other information such as gender, age and coat
+colour.
 
-+ **geno.csv** A large table giving the genotypes sampled at 4608
-markers (single nucleotide polymorphisms, or SNPs) in the F2 and F34
-crosses. Most of the genotypes are marked as missing in the F2 mice
-because a subset of only 162 SNPs were genotyped in these mice.
++ [geno.csv](data/geno.csv) A large table giving the genotypes sampled
+at 4608 markers (single nucleotide polymorphisms, or SNPs) in the F2
+and F34 crosses. Most of the genotypes are marked as missing in the F2
+mice because a subset of only 162 SNPs were genotyped in these mice.
 
-+ **map.csv** Information about SNPs genotyped in mouse advanced
-intercross line. Information for each SNP includes chromosome number,
-base pair position on chromosome, refSNP identifier (if available),
-and genetic distance estimate.
++ [map.csv](data/map.csv) Information about SNPs genotyped in mouse
+advanced intercross line. Information for each SNP includes chromosome
+number, base pair position on chromosome, refSNP identifier (if
+available), and genetic distance estimate.
 
-+ **ped.csv** Pedigree data for the mouse advanced intercross line.
++ [ped.csv](data/ped.csv) Pedigree data for the mouse advanced
+  intercross line.
 
-+ **inbred.ped.csv** Pedigree fragment used to define inbred founders.
-QTLRel assumes that the alleles of founders in the pedigree are not
-identical by descent (IBD). This pedigree fragment is added to the
-pedigree to circumvent this restriction.
++ [inbred.ped.csv](data/inbred.ped.csv) Pedigree fragment used to
+define inbred founders. QTLRel assumes that the alleles of founders
+in the pedigree are not identical by descent (IBD). This pedigree
+fragment is added to the pedigree to circumvent this restriction.
 
-+ **qtls.csv** SNPs with the strongest support for being QTLs
-based on the initial QTL mapping.
++ [qtls.csv](data/qtls.csv) SNPs with the strongest support for being
+QTLs based on the initial QTL mapping.
 
-+ **F34.idcf.RData** Identity coefficients for F34 cross calculated
-  using the **cic** function in QTLRel.
++ [F34.idcf.RData](data/F34.idcf.RData) Identity coefficients for F34
+  cross calculated using the **cic** function in QTLRel.
 
 ###Overview of R source code files
 
@@ -64,7 +66,7 @@ main ones of interest:
 
 + **map.qtls.R** Description of this file goes here.
 
-+ **plot.gwscan.R** Description of this file goes here.
++ plot.gwscan.R Description of this file goes here.
 
 ###Credits
 
