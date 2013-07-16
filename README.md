@@ -3,15 +3,13 @@
 ###Objectives
 
 This repository contains code and data to reproduce results of a study
-identifying quantitative trait loci for fear and anxiety-related
-traits in mice. The data are genotypes and phenotypes from a LG/J x
-SM/J F2 intercross, and a 34th generation advanced intercross based on
-the same inbred strains. The QTL mapping accounts for the fact that
-the mice in the combined F2 + F34 cohort are related to each other at
-varying proportions. All the steps of the analysis are implemented in
-[R](http://www.r-project.org).
-
-Overview of what is contained in repository goes here.
+identifying quantitative trait loci (QTLs) for fear and
+anxiety-related traits in mice. The data are genotypes and phenotype
+measurements from a LG/J x SM/J F2 intercross, and a 34th generation
+advanced intercross bred from the same inbred strains. The QTL mapping
+procedures account for the fact that the mice in the combined (F2 + F34)
+sample are related to each other at varying proportions. All the steps
+of the analysis are implemented in [R](http://www.r-project.org).
 
 ###License
 
@@ -30,10 +28,27 @@ This program is distributed in the hope that it will be useful, but
 
 ###Getting started
 
-Things to explain in this section: (1) how to download the code and
-data to your computer; (2) which R libraries to install (QTLRel is one
-of them, of course); (3) how to run the script to compute QTL mapping
-results for all phenotypes; (4) how to display the results.
+To begin reproducing the QTL mapping results, follow these steps:
+
+1. Download the R code and data, either by cloning or forking the
+   github repository, or by downloading the repository as a
+   [ZIP file](http://github.com/pcarbo/lgsmfear/archive/master.zip).
+
+2. Install packages necessary to run the scripts in R. These are
+   [abind](http://cran.r-project.org/web/packages/abind),
+   [plyr](http://plyr.had.co.nz/), [qtl](http://www.rqtl.org) and
+   [QTLRel](http://github.com/pcarbo/QTLRel).
+
+3. To assess support for regions of the genome (except the X
+   chromosome) relevant to the fear conditioning traits, run R from
+   the code subdirectory, and enter command **source("map.qtls.R")**
+   in R.
+
+4. To display these results of the genome-wide scan, enter
+   **source("plot.gwscan.R")** in R.
+
+For additional steps in the statistical analysis, consult the
+descriptions of the R source code files below.
 
 ###Overview of data files
 
