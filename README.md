@@ -2,14 +2,16 @@
 
 ###Objectives
 
-This repository contains code and data to reproduce results of a study
-identifying quantitative trait loci (QTLs) for fear and
-anxiety-related traits in mice. The data are genotypes and phenotype
-measurements from a LG/J x SM/J F2 intercross, and a 34th generation
-advanced intercross bred from the same inbred strains. The QTL mapping
-procedures account for the fact that the mice in the combined (F2 + F34)
-sample are related to each other at varying proportions. All the steps
-of the analysis are implemented in [R](http://www.r-project.org).
+This repository contains code and data to reproduce the results of a
+study identifying regions of the genome containing quantitative trait
+loci (QTLs) for fear and anxiety-related traits in mice. The data are
+genotypes and phenotype measurements from a LG/J x SM/J F2 intercross,
+and a 34th generation advanced intercross bred from the same inbred
+strains. The QTL mapping procedures account for the fact that the mice
+in the combined (F2 + F34) sample are related to each other at varying
+proportions. All the steps of the analysis are implemented in
+[R](http://www.r-project.org) using the
+[QTLRel package](http://github.com/pcarbo/QTLRel).
 
 ###License
 
