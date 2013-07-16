@@ -6,17 +6,25 @@ Overview of what is contained in repository goes here.
 
 ###License
 
-The lgsmfear source code repository by [Peter
-Carbonetto](http://www.cs.ubc.ca/spider/pcarbo) is free software: you
-can redistribute it under the terms of the [GNU General Public
-License](http://www.gnu.org/licenses/gpl.html). All the files in this
-project are part of the lgsmfear repository. This project is
-distributed in the hope that it will be useful, but **without any
-warranty**; without even the implied warranty of **merchantability or
-fitness for a particular purpose**. See file LICENSE for the full text
-of the license.
+Copyright (c) 2013, Peter Carbonetto
 
-Copyright 2013 Peter Carbonetto.
+The lgsmfear project repository is free software: you can redistribute
+it and/or modify it under the terms of the
+[GNU General Public License](http://www.gnu.org/licenses/gpl.html) as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+this program is distributed in the hope that it will be useful, but
+**without any warranty**; without even the implied warranty of
+**merchantability** or **fitness for a particular purpose**. See
+[LICENSE](LICENSE) for more details.
+
+###Getting started
+
+Things to explain in this section: (1) how to download the code and
+data to your computer; (2) which R libraries to install (QTLRel is one
+of them, of course); (3) how to run the script to compute QTL mapping
+results for all phenotypes; (4) how to display the results.
 
 ###Overview of data files
 
@@ -30,6 +38,8 @@ other information such as gender, age and coat colour.
 markers (single nucleotide polymorphisms, or SNPs) in the F2 and F34
 crosses. Most of the genotypes are marked as missing in the F2 mice
 because a subset of only 162 SNPs were genotyped in these mice.
+
++ **map.csv** 
 
 ###Overview of R source code files
 
