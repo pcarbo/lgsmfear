@@ -1,7 +1,5 @@
 # QTL mapping of fear conditioning traits in LG/J x SM/J AIL mouse study
 
-Test to see if git fetch works...
-
 ###Objectives
 
 This repository contains code and data to reproduce the results of a
