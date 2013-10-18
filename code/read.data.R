@@ -16,17 +16,18 @@ library(qtl)
 # ----------------------------------------------------------------------
 # Returns a data frame containing the pedigree data stored in a CSV file.
 read.pedigree <- function (file)
-  read.csv(file,comment.char="#",as.is = c(1,4,5),check.names = FALSE)
+  read.csv(file,comment.char="#",as.is = c("id","sire","dam"),
+           check.names = FALSE)
 
 # ----------------------------------------------------------------------
 # Returns a data frame containing the phenotype data stored in a CSV file.
 read.phenotypes <- function (file)
-  read.csv(file,comment.char="#",as.is = 1,check.names = FALSE)
+  read.csv(file,comment.char="#",as.is = "id",check.names = FALSE)
 
 # ----------------------------------------------------------------------
 # Returns a data frame containing the genotype data stored in a CSV file.
 read.genotypes <- function (file)
-  read.csv(file,comment.char="#",as.is = 1,check.names = FALSE)
+  read.csv(file,comment.char="#",as.is = "id",check.names = FALSE)
 
 # ----------------------------------------------------------------------
 # Returns a data frame containing the marker data stored in a CSV file.
