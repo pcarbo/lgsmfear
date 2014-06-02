@@ -64,9 +64,9 @@ colour.
 
 + [geno.csv](data/geno.csv) A large table giving the genotypes sampled
 at 4608 markers (single nucleotide polymorphisms, or SNPs) in the F2
-and F34 crosses. Missing genotypes (entries set to "NA") are imputed using QTLRel. 
-Most of the genotypes are marked as missing in the F2 mice because a subset of only 
-162 SNPs were genotyped in these mice.
+and F34 crosses. Missing genotypes (NA entries) are imputed using QTLRel. 
+Most of the genotypes are marked as missing in the F2 mice because a 
+subset of only 162 SNPs were genotyped in these mice.
 
 + [map.csv](data/map.csv) Information about SNPs genotyped in mouse
 advanced intercross line. Information for each SNP includes chromosome
