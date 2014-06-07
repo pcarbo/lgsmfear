@@ -23,19 +23,20 @@ qtl.method   <- "hk"       # Which QTL mapping method to use in qtl.
 relatedness  <- "markers"  # How to estimate relatedness (either
                            # "pedigree" or "markers").
 map.function <- "Haldane"  # Map function to use for interval mapping.
-num.perm     <- 1000       # Number of replicates for permutation test.
+num.perm     <- 10         # Number of replicates for permutation test.
 jitter.amt   <- 1e-6       # Amount by which marker positions are adjusted.
 deps         <- 0.01       # Small number added to diagonal entries of
                            # variance components in combined analysis
                            # using pedigree data.
 
 # Save the results to this file.
-resultsfile <- "gwscan.rr.RData"
+resultsfile <- "/tmp/pcarbo/gwscan.rr.temp.RData"
 
 # Separately map QTLs for these phenotypes, and use these covariates
 # in QTL mapping for all phenotypes.
-phenotypes <- c("pretrainfreeze","freezetocontext","freezetocue",
-                "distperiphery","distcenter","propcenter")
+# phenotypes <- c("pretrainfreeze","freezetocontext","freezetocue",
+#                 "distperiphery","distcenter","propcenter")
+phenotypes <- c("freezetocontext","freezetocue")
 covariates <- c("sex","age","albino","agouti")
 
 # Initialize the random number generator.
@@ -191,7 +192,8 @@ additive  <- r
 dominance <- r
 pve       <- r
 vcparams  <- list(F2 = NULL,F34 = NULL,combined = NULL)
-perms     <- list(F2 = NULL,F34 = NULL,combined = NULL)
+perms     <- list(F2 = NULL,F34 = NULL,combined = NULL,
+                  F2.rel = NULL,F34.rel = NULL,combined.rel = NULL)
 
 # ANALYSIS WITH F2 CROSS USING QTL
 # --------------------------------
@@ -236,10 +238,12 @@ for (phenotype in phenotypes) {
                          F2.rows,F2.markers,verbose = TRUE)
   else if (relatedness == "markers")
     out <- map.cross.rr(pheno,geno,map,phenotype,covariates,gp, 
-                        F2.rows,F2.markers,verbose = TRUE)
+                        num.perm,F2.rows,F2.markers,verbose = TRUE)
   
-  # Get the parameter estimates and QTL mapping results.
+  # Get the parameter estimates, QTL mapping results and estimated
+  # distribution of maximum LOD scores under the null.
   gwscan$F2.rel[[phenotype]] <- out$gwscan$lod
+  perms$F2.rel[[phenotype]]  <- out$perms
   additive$F2[[phenotype]]   <- out$gwscan$additive
   dominance$F2[[phenotype]]  <- out$gwscan$dominance
   pve$F2[[phenotype]]        <- out$gwscan$pve
@@ -257,11 +261,12 @@ for (phenotype in phenotypes) {
     out <- map.cross.ped(pheno,geno,map,phenotype,covariates,F34.gm,gp,
                          rows = F34.rows,verbose = TRUE)
   else if (relatedness == "markers")
-    out <- map.cross.rr(pheno,geno,map,phenotype,covariates,gp,
+    out <- map.cross.rr(pheno,geno,map,phenotype,covariates,gp,num.perm,
                         rows = F34.rows,verbose = TRUE)
 
   # Get the parameter estimates and QTL mapping results.
   gwscan$F34[[phenotype]]    <- out$gwscan$lod
+  perms$F34.rel[[phenotype]] <- out$perms
   additive$F34[[phenotype]]  <- out$gwscan$additive
   dominance$F34[[phenotype]] <- out$gwscan$dominance
   pve$F34[[phenotype]]       <- out$gwscan$pve
@@ -275,11 +280,12 @@ for (phenotype in phenotypes) {
     out <- map.cross.ped(pheno,geno,map,phenotype,covariates,
                          gm,gp,rows = rows,verbose = TRUE)
   else if (relatedness == "markers")
-    out <- map.cross.rr(pheno,geno,map,phenotype,covariates,gp, 
+    out <- map.cross.rr(pheno,geno,map,phenotype,covariates,gp,num.perm,
                         rows = rows,verbose = TRUE)
 
   # Get the parameter estimates and QTL mapping results.
   gwscan$combined[[phenotype]]    <- out$gwscan$lod
+  perms$combined.rel[[phenotype]] <- out$perms
   additive$combined[[phenotype]]  <- out$gwscan$additive
   dominance$combined[[phenotype]] <- out$gwscan$dominance
   pve$combined[[phenotype]]       <- out$gwscan$pve

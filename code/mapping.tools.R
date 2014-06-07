@@ -14,9 +14,9 @@
 #   map.cross.ped(pheno,geno,map,phenotype,covariates,
 #                 gm,gp,rows,markers,verbose)
 #   map.cross.rr.chr(pheno,geno,map,phenotype,covariates,
-#                    chr,gp,int.covariates,verbose)
+#                    chr,gp,num.perm,int.covariates,verbose)
 #   map.cross.rr(pheno,geno,map,phenotype,covariates,gp, 
-#                rows,markers,verbose)
+#                num.perm,rows,markers,verbose)
 # 
 library(qtl)
 library(QTLRel)
@@ -217,7 +217,7 @@ map.cross.ped <- function (pheno, geno, map, phenotype, covariates,
 # and the parameter estimates from the model fitting of the variance
 # components (vcparams).
 map.cross.rr.chr <- function (pheno, geno, map, phenotype, covariates,
-                              chr, gp, int.covariates = NULL,
+                              chr, gp, num.perm, int.covariates = NULL,
                               verbose = TRUE) {
 
   # Get the markers on the chromosome.
@@ -250,9 +250,21 @@ map.cross.rr.chr <- function (pheno, geno, map, phenotype, covariates,
                           vc,phenotype,covariates,
                           int.covariates = int.covariates)
 
-  # Return a list containing the QTL mapping results (gwscan) and the
+  # Compute the maximum LOD score for each permutation of the genotypes.
+  perms <- matrix(NA,num.perm,1)
+  for (i in 1:num.perm) {
+    rows        <- sample(n)
+    gwscan.perm <- map.cross.rel(pheno,geno[rows,markers],map[markers,],
+                                 subset.genoprob(gp,rows,markers),
+                                 vc,phenotype,covariates,
+                                 int.covariates = int.covariates)
+    perms[i]    <- max(gwscan.perm$lod)
+  }
+  
+  # Return a list containing the QTL mapping results (gwscan), the
+  # maximum LOD scores obtained by permuting the genotypes, and the
   # parameter estimates of the variance components (vcparams).
-  return(list(gwscan = gwscan,vcparams = r$par))
+  return(list(gwscan = gwscan,perms = perms,vcparams = r$par))
 }
 
 # ----------------------------------------------------------------------
@@ -266,7 +278,8 @@ map.cross.rr.chr <- function (pheno, geno, map, phenotype, covariates,
 # parameter estimates from the model fitting of the variance
 # components (vcparams).
 map.cross.rr <- function (pheno, geno, map, phenotype, covariates, gp, 
-                          rows = NULL, markers = NULL, verbose = TRUE) {
+                          num.perm, rows = NULL, markers = NULL,
+                          verbose = TRUE) {
 
   # If the rows and markers are not specified, use all the rows and
   # markers.
@@ -308,15 +321,26 @@ map.cross.rr <- function (pheno, geno, map, phenotype, covariates, gp,
 
   # Map QTLs separately for each chromosome.
   gwscan <- list()
-  for (i in chromosomes)
-    gwscan[[i]] <- map.cross.rr.chr(pheno,geno,map,phenotype,covariates,
-                                    i,gp,verbose = verbose)$gwscan
+  perms  <- list()
+  for (i in chromosomes) {
+    out <- map.cross.rr.chr(pheno,geno,map,phenotype,covariates,i,gp,
+                            num.perm,verbose = verbose)
+    gwscan[[i]] <- out$gwscan
+    perms[[i]]  <- out$perms
+  }
 
   # Merge the QTLRel mapping results.
   r           <- do.call(rbind,gwscan)
   rownames(r) <- do.call(c,lapply(gwscan,rownames))
+  gwscan      <- r
 
-  # Return the QTL mapping results and parameter estimates
-  # corresponding to these variance components.
-  return(list(gwscan = r,vcparams = vcparams))
+  # Merge the permutation testing results.
+  r            <- do.call(cbind,perms)
+  perms        <- matrix(apply(r,1,max),num.perm,1)
+  class(perms) <- c("scanoneperm","matrix")
+  
+  # Return the QTL mapping results, estimated distribution of maximum
+  # LOD scores, and parameter estimates corresponding to these
+  # variance components.
+  return(list(gwscan = gwscan,perms = perms,vcparams = vcparams))
 }
