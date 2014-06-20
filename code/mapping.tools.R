@@ -12,7 +12,7 @@
 #   map.cross.qtl(pheno,geno,phenotypes,covariates,gp,rows,
 #                 markers,qtl.method,num.perm,verbose)
 #   map.cross.ped(pheno,geno,map,phenotype,covariates,
-#                 gm,gp,rows,markers,verbose)
+#                 gm,gp,num.perm,rows,markers,verbose)
 #   map.cross.rr.chr(pheno,geno,map,phenotype,covariates,
 #                    chr,gp,num.perm,int.covariates,verbose)
 #   map.cross.rr(pheno,geno,map,phenotype,covariates,gp, 
@@ -158,7 +158,7 @@ map.cross.qtl <- function (pheno, geno, phenotypes, covariates, gp = NULL,
 # (gwscan), and the parameter estimates from the model fitting of the
 # variance components (vcparams).
 map.cross.ped <- function (pheno, geno, map, phenotype, covariates,
-                           gm, gp, rows = NULL, markers = NULL,
+                           gm, gp, num.perm, rows = NULL, markers = NULL,
                            verbose = TRUE) {
   
   # If the rows and markers are not specified, use all the rows and
@@ -202,10 +202,23 @@ map.cross.ped <- function (pheno, geno, map, phenotype, covariates,
   if (verbose)
     cat("- Mapping QTLs.\n")
   gwscan <- map.cross.rel(pheno,geno,map,gp,vc,phenotype,covariates)
-  
-  # Return the QTL mapping results and the parameter estimates
-  # corresponding to these variance components.
-  return(list(gwscan = gwscan,vcparams = r$par))
+
+  # Compute the maximum LOD score for each permutation of the genotypes.
+  if (verbose)
+    cat("- Computing maximum LOD scores with permuted genotypes.\n")
+  perms <- matrix(NA,num.perm,1)
+  for (i in 1:num.perm) {
+    rows        <- sample(n)
+    gwscan.perm <- map.cross.rel(pheno,geno[rows,],map,
+                                 subset.genoprob(gp,rows),
+                                 vc,phenotype,covariates)
+    perms[i]    <- max(gwscan.perm$lod)
+  }
+
+  # Return a list containing the QTL mapping results (gwscan), the
+  # maximum LOD scores obtained by permuting the genotypes, and the
+  # parameter estimates of the variance components (vcparams).
+  return(list(gwscan = gwscan,perms = perms,vcparams = r$par))
 }
 
 # ----------------------------------------------------------------------
