@@ -138,4 +138,4 @@ The R code implementing the analysis procedures was developed by:<br>
 [Peter Carbonetto](http://www.cs.ubc.ca/spider/pcarbo)<br>
 Dept. of Human Genetics<br>
 University of Chicago<br> 
-July 2013
+June 2014
