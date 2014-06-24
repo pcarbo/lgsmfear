@@ -15,7 +15,7 @@ proportions. All the steps of the analysis are implemented in
 
 ###License
 
-Copyright (c) 2013, Peter Carbonetto
+Copyright (c) 2013, 2014, Peter Carbonetto
 
 The lgsmfear project repository is free software: you can redistribute
 it and/or modify it under the terms of the
